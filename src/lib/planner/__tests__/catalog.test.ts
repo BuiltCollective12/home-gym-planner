@@ -64,6 +64,8 @@ describe("catalog integrity", () => {
       B0CZF39S2S: "Sportsroyals cage — use B0CPP4L531",
       B0CTRNZ9XC: "Synergee Games bar — use B07NZ6PK8F",
       B0G6Z84TQM: "BowFlex 552 — use B0G1V685WC",
+      B07R82448W: "HulkFit power cage — use B07FBCX53N",
+      B00NAHQP90: "Titan T-2 family — use B09CBXCJ83 (the 71in Short)",
     };
     for (const item of catalog) {
       const why = item.asin ? knownParents[item.asin] : undefined;

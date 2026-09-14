@@ -76,7 +76,8 @@ export const amazonData: Record<string, AmazonRecord> = {
   },
   "titan-t2-squat-stand": {
     imageId: "51CusjWGyDL",
-    checkedOn: CHECKED,
+    priceUsd: 499.99,
+    checkedOn: RECHECKED,
     titleSeen: "Titan Fitness T-2 Series Short 71\" Black Power Rack, 850 LB",
   },
   "cap-olympic-bar-7ft": {

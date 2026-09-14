@@ -79,7 +79,7 @@ export const catalog: Equipment[] = [
     ceilingClearanceIn: 89,
     weightLbs: 165,
     estPriceUsd: 416,
-    ...az("B07R82448W"),
+    ...az("B07FBCX53N"),
     tags: ["power cage", "budget", "squat", "pull-up"],
   },
   {
@@ -129,18 +129,20 @@ export const catalog: Equipment[] = [
   },
   {
     id: "titan-t2-squat-stand",
-    name: "T-2 Series Squat Stand",
+    name: 'T-2 Series Short Power Rack (71")',
     brand: "Titan Fitness",
     category: "racks",
     widthIn: 48,
     depthIn: 46,
-    heightIn: 84,
+    heightIn: 71,
     clearanceIn: { front: 36, back: 12, left: 12, right: 12 },
-    ceilingClearanceIn: 90,
+    // 71" of rack plus room to stand a bar up inside it. The whole point of
+    // this rack is that it fits where a full-height cage does not.
+    ceilingClearanceIn: 79,
     weightLbs: 90,
-    estPriceUsd: 300,
-    ...az("B00NAHQP90"),
-    tags: ["squat stand", "compact", "pull-up", "small space"],
+    estPriceUsd: 500,
+    ...az("B09CBXCJ83"),
+    tags: ["power rack", "short", "compact", "low ceiling", "small space"],
   },
 
   {
