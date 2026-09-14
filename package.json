@@ -9,7 +9,8 @@
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:availability": "node scripts/check-availability.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

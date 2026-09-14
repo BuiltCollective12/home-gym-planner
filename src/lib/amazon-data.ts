@@ -42,7 +42,8 @@ export const amazonData: Record<string, AmazonRecord> = {
     imageId: "51GPtq+x9nL",
     priceUsd: 559.99,
     checkedOn: CHECKED,
-    titleSeen: "Titan Fitness T-3 Series Black Short Power Rack, 24in Depth",
+    titleSeen:
+      "Titan Fitness T-3 Series Power Rack, 1,100 LB Capacity Cage for Weightlifting",
   },
   "titan-x3-tall-rack": {
     imageId: "51fg5LQ4U4L",

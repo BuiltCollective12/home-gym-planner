@@ -110,3 +110,37 @@ discounts. The safety squat bar went the other way, $330 → $460.
 - No availability field exists in the data yet, so stock churn is invisible
   until someone tries to buy. This sweep should be repeated — monthly is
   probably right, given 6 of 86 died in roughly two days of catalog age.
+
+## The audit is now a command
+
+```
+npm run check:availability
+```
+
+Fetches every catalog ASIN, reports `ok` / `DEAD` / `unchecked`, warns when a
+category would drop below three live options, flags titles that have drifted
+far enough to suggest a repointed ASIN, writes `availability-report.json`, and
+exits non-zero if anything is dead.
+
+Two things it deliberately does not do:
+
+- **It never calls a blocked fetch a delisting.** Amazon serves captcha and
+  throttle pages with no cart button on them. Treating those as dead products
+  would have us tearing working items out of the catalog. Anything that is not
+  recognisably a product page is reported as `unchecked` and left alone.
+- **It does not match on the bare string `add-to-cart-button`.** That appears
+  in inline scripts on every page, dead ones included. The discriminator is
+  `id="add-to-cart-button"`.
+
+Title drift is compared by token overlap rather than literally, because Amazon
+rewrites titles constantly — dropping the brand prefix, appending a paragraph
+of keywords, swapping "and" for "&" — and the served HTML is entity-encoded. A
+literal comparison flagged ten of eighty-six on the first run, all noise.
+
+**Run it monthly.** Six of the first 86 died within days of being sourced.
+
+### Full sweep, 2026-09-13
+
+All 86 live, which independently confirms the manual browser audit above and
+the six replacements. One title had been rewritten (`titan-t3-power-rack`) —
+same rack, new listing copy — and the recorded title was updated to match.
