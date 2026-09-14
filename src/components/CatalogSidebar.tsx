@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { siteConfig } from "@/lib/site.config";
 import { catalog } from "@/lib/catalog";
 import { usePlannerStore } from "@/store/planner-store";
 import { CATEGORIES, CATEGORY_LABELS, type Category } from "@/lib/types";
@@ -85,9 +86,10 @@ export function CatalogSidebar() {
                 {formatLength(item.depthIn, units)} ×{" "}
                 {formatLength(item.heightIn, units)} ·{" "}
                 {formatWeight(item.weightLbs, units)}
-                {typeof item.estPriceUsd === "number" && (
-                  <> · est. {formatUsd(item.estPriceUsd)}</>
-                )}
+                {siteConfig.showItemPrices &&
+                  typeof item.estPriceUsd === "number" && (
+                    <> · est. {formatUsd(item.estPriceUsd)}</>
+                  )}
               </p>
             </button>
           </li>

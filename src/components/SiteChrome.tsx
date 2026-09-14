@@ -52,13 +52,19 @@ export function AffiliateDisclosure({
   if (variant === "inline") {
     return (
       <p className="text-xs leading-relaxed text-ink-500">
-        Affiliate links — we may earn a commission at no extra cost to you.
+        Affiliate links — we may earn a commission at no extra cost to you.{" "}
+        <Link href="/disclosure" className="underline hover:text-ink-700">
+          Details
+        </Link>
       </p>
     );
   }
   return (
     <p className="text-xs leading-relaxed text-ink-500">
-      {siteConfig.affiliateDisclosure}
+      {siteConfig.affiliateDisclosure}{" "}
+      <Link href="/disclosure" className="underline hover:text-ink-700">
+        Full disclosure
+      </Link>
     </p>
   );
 }
@@ -79,13 +85,19 @@ export function SiteFooter() {
             <Link href="/cart" className="hover:text-ink-900">
               Cart
             </Link>
+            <Link href="/disclosure" className="hover:text-ink-900">
+              Affiliate disclosure
+            </Link>
+            <Link href="/privacy" className="hover:text-ink-900">
+              Privacy
+            </Link>
           </nav>
         </div>
         <AffiliateDisclosure />
         <p className="text-xs text-ink-400">
-          © {new Date().getFullYear()} {siteConfig.name}. Prices are our own
-          estimates and change often — always check the live price before you
-          buy.
+          © {new Date().getFullYear()} {siteConfig.name}. Any figure we show is
+          our own planning estimate, not the retailer&apos;s price — always
+          check the listing before you buy.
         </p>
       </div>
     </footer>

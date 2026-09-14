@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { siteConfig } from "@/lib/site.config";
 import { useMemo } from "react";
 import { getEquipment } from "@/lib/catalog";
 import { usePlannerStore } from "@/store/planner-store";
@@ -95,9 +96,10 @@ export function TotalsPanel() {
                       </p>
                       <p className="text-xs text-ink-500">
                         {equipment.brand}
-                        {typeof equipment.estPriceUsd === "number"
+                        {siteConfig.showItemPrices &&
+                        typeof equipment.estPriceUsd === "number"
                           ? ` · est. ${formatUsd(equipment.estPriceUsd)}`
-                          : " · price on site"}
+                          : " · check price on Amazon"}
                         {item.rotation !== 0 && ` · ${item.rotation}°`}
                       </p>
                     </button>

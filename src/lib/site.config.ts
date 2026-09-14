@@ -6,6 +6,27 @@ export const siteConfig = {
   name: "RackSpace",
   tagline: "Plan your home gym. Buy it in one click.",
   domain: "rackspace.fit",
+  /**
+   * Canonical origin, used for sitemap/robots and social cards. Vercel sets
+   * NEXT_PUBLIC_SITE_URL for us; set it to the custom domain once one is
+   * pointed at the deployment.
+   */
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : "http://localhost:3000"),
+  /**
+   * COMPLIANCE SWITCHES — both flip to true only once Amazon Product
+   * Advertising API access is granted (an approved Associates account plus
+   * three qualifying sales). Until then the Associates Operating Agreement
+   * does not license us to display Amazon's product imagery or quote their
+   * prices, so the site uses our own renders and sends people to the listing
+   * to see the price.
+   */
+  useAmazonImagery: false,
+  showItemPrices: false,
+
   /** Amazon Associates tag. Replace with the real one before launch. */
   amazonTag: process.env.NEXT_PUBLIC_AMAZON_TAG ?? "homegymplan-20",
   amazonDomain: "www.amazon.com",

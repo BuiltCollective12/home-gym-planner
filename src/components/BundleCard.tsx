@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { siteConfig } from "@/lib/site.config";
 import { useMemo } from "react";
 import type { Bundle } from "@/lib/bundles";
 import { getEquipment } from "@/lib/catalog";
@@ -85,11 +86,12 @@ export function BundleCard({ bundle }: { bundle: Bundle }) {
                     <span className="text-ink-500"> × {line.quantity}</span>
                   )}
                 </span>
-                {typeof line.equipment.estPriceUsd === "number" && (
-                  <span className="shrink-0 text-xs tabular-nums text-ink-500">
-                    {formatUsd(line.equipment.estPriceUsd * line.quantity)}
-                  </span>
-                )}
+                {siteConfig.showItemPrices &&
+                  typeof line.equipment.estPriceUsd === "number" && (
+                    <span className="shrink-0 text-xs tabular-nums text-ink-500">
+                      {formatUsd(line.equipment.estPriceUsd * line.quantity)}
+                    </span>
+                  )}
               </li>
             ))}
           </ul>

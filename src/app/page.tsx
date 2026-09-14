@@ -219,8 +219,10 @@ export default function HomePage() {
               <div className="min-w-0">
                 <p className="truncate font-semibold">{item.name}</p>
                 <p className="text-xs text-ink-500">{item.brand}</p>
-                <p className="mt-1 text-sm tabular-nums text-ink-600">
-                  est. {formatUsd(item.estPriceUsd ?? 0)}
+                <p className="mt-1 text-sm text-ink-600">
+                  {siteConfig.showItemPrices
+                    ? `est. ${formatUsd(item.estPriceUsd ?? 0)}`
+                    : "Check price on Amazon"}
                 </p>
               </div>
             </li>

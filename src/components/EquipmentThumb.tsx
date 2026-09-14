@@ -4,6 +4,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { renderThumbnail } from "@/lib/thumbnails";
 import { productImageOverrides } from "@/lib/product-images";
 import { amazonImageUrl, amazonRecord } from "@/lib/amazon-data";
+import { siteConfig } from "@/lib/site.config";
 import type { Equipment } from "@/lib/types";
 
 /**
@@ -54,7 +55,13 @@ function usePhotoFor(equipment: Equipment): {
   url: string | null;
 } {
   const ready = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const amazonImageId = amazonRecord(equipment.id)?.imageId;
+  // Amazon's own imagery is licensed only through PA-API, so it stays off
+  // until that access exists. Photos we hold rights to (a manufacturer media
+  // kit dropped into public/products, or an explicit override) are unaffected.
+  const amazonImageId = siteConfig.useAmazonImagery
+    ? amazonRecord(equipment.id)?.imageId
+    : undefined;
+
   const url =
     equipment.imageUrl ??
     productImageOverrides[equipment.id] ??

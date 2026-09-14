@@ -163,8 +163,10 @@ export function CartView() {
             />
           </dl>
           <p className="mt-2 text-xs text-ink-400">
-            Estimates we maintain by hand, not live pricing. Check the real
-            price on each retailer before you buy.
+            Our own planning estimate, not Amazon&apos;s price — Amazon&apos;s
+            changes constantly and we are not licensed to quote it until we have
+            Product Advertising API access. Check each listing for the real
+            price.
             {totals.hasUnpricedItems && " Some items have no estimate yet."}
           </p>
 
@@ -251,8 +253,9 @@ function CartRow({
   onRemove: () => void;
 }) {
   const { equipment, quantity } = line;
+  // Per-item Amazon prices stay hidden until PA-API licenses us to quote them.
   const lineTotal =
-    typeof equipment.estPriceUsd === "number"
+    siteConfig.showItemPrices && typeof equipment.estPriceUsd === "number"
       ? equipment.estPriceUsd * quantity
       : null;
 
@@ -293,7 +296,7 @@ function CartRow({
 
       <div className="w-20 text-right text-sm tabular-nums">
         {lineTotal === null ? (
-          <span className="text-xs text-ink-500">see site</span>
+          <span className="text-xs text-ink-500">see Amazon</span>
         ) : (
           <>
             <span className="text-ink-500">est.</span> {formatUsd(lineTotal)}
