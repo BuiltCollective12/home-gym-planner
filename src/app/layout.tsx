@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/lib/site.config";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
@@ -55,6 +56,13 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-dvh bg-paper text-ink-900 antialiased">
         {children}
+        {/*
+          Two analytics, deliberately. Vercel Analytics gives pageviews and Web
+          Vitals in the deploy dashboard with no configuration; PostHog carries
+          the funnel events — affiliate clicks, plans started, carts — which are
+          the numbers that say whether this earns.
+        */}
+        <VercelAnalytics />
         <Analytics />
       </body>
     </html>
