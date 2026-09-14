@@ -62,7 +62,7 @@ export const layouts: Layout[] = [
     roomLabel: "10 × 10 ft",
     sqft: 100,
     intro:
-      "One hundred square feet is enough for a complete barbell gym — rack, bench, bar and plates — with room to walk around it. What you give up is deadlifting away from the rack and any real cardio footprint. This layout puts the rack on the long wall so you press into open floor rather than into a corner.",
+      "One hundred square feet is enough for a complete barbell gym — rack, bench, bar and plates — with room to walk around it. What you give up is deadlifting away from the rack and any real cardio footprint. This layout puts the rack flat against one wall and keeps the opposite half of the room empty, so you press and bail into open floor rather than into a corner.",
     notes: [
       {
         heading: "Put the rack against a wall, not in the middle",

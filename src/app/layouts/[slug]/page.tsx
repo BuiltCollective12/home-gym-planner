@@ -72,7 +72,10 @@ export default async function LayoutPage({
     },
     { label: "Pieces", value: `${totals.itemCount}` },
     { label: "Est. cost", value: money(totals.estCostUsd) },
-    { label: "Total weight", value: `${totals.totalWeightLbs.toLocaleString()} lb` },
+    {
+      label: "Total weight",
+      value: `${Math.round(totals.totalWeightLbs).toLocaleString()} lb`,
+    },
   ];
 
   return (
