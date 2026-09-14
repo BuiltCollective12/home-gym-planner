@@ -3,17 +3,45 @@ import { siteConfig } from "@/lib/site.config";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
+const DESCRIPTION =
+  "Free home gym layout planner. Enter your room size, drag in racks, benches and cardio at real dimensions, and get warned before you buy something that will not fit.";
+
 export const metadata: Metadata = {
+  // Makes every relative URL below resolve absolutely — required for link
+  // previews on Reddit, iMessage, Discord and the rest.
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: `${siteConfig.name} — ${siteConfig.tagline}`,
     template: `%s · ${siteConfig.name}`,
   },
-  description:
-    "Enter your room size, drag in racks, benches and cardio, check clearances, then buy the whole gym in one click.",
+  description: DESCRIPTION,
+  applicationName: siteConfig.name,
+  keywords: [
+    "home gym planner",
+    "garage gym layout",
+    "home gym layout tool",
+    "will a power rack fit",
+    "gym room planner",
+    "power rack ceiling height",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: DESCRIPTION,
+    url: siteConfig.url,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0A0C",
+  // Matches the light page background, not the old dark theme.
+  themeColor: "#F5F5F7",
   width: "device-width",
   initialScale: 1,
 };

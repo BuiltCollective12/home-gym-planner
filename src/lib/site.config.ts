@@ -7,15 +7,21 @@ export const siteConfig = {
   tagline: "Plan your home gym. Buy it in one click.",
   domain: "rackspace.fit",
   /**
-   * Canonical origin, used for sitemap/robots and social cards. Vercel sets
-   * NEXT_PUBLIC_SITE_URL for us; set it to the custom domain once one is
-   * pointed at the deployment.
+   * Canonical origin for the sitemap, robots.txt and social cards.
+   *
+   * Order matters. `NEXT_PUBLIC_VERCEL_URL` is per-deployment
+   * (`…-p5bkbspax-….vercel.app`) and dies on the next push, so a sitemap built
+   * from it would send crawlers to a dead host. The production URL is stable,
+   * and an explicit NEXT_PUBLIC_SITE_URL beats both once a custom domain is
+   * attached.
    */
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : "http://localhost:3000"),
+    (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.NEXT_PUBLIC_VERCEL_URL
+        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+        : "http://localhost:3000"),
   /**
    * COMPLIANCE SWITCHES — both flip to true only once Amazon Product
    * Advertising API access is granted (an approved Associates account plus
