@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/site.config";
 export const metadata: Metadata = {
   title: "Affiliate disclosure",
   description:
-    "How RackSpace makes money, what our links do, and what we will not do with your data.",
+    `How ${siteConfig.name} makes money, what our links do, and what we will not do with your data.`,
 };
 
 export default function DisclosurePage() {

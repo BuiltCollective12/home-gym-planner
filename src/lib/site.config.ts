@@ -3,9 +3,9 @@
  * white-labelled (brief: "Planner licensing") without touching components.
  */
 export const siteConfig = {
-  name: "RackSpace",
+  name: "GymPlanner",
   tagline: "Plan your home gym. Buy it in one click.",
-  domain: "rackspace.fit",
+  domain: "gymplanner.org",
   /**
    * Canonical origin for the sitemap, robots.txt and social cards.
    *
@@ -23,18 +23,28 @@ export const siteConfig = {
         ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
         : "http://localhost:3000"),
   /**
-   * COMPLIANCE SWITCHES — both flip to true only once Amazon Product
-   * Advertising API access is granted (an approved Associates account plus
-   * three qualifying sales). Until then the Associates Operating Agreement
-   * does not license us to display Amazon's product imagery or quote their
-   * prices, so the site uses our own renders and sends people to the listing
-   * to see the price.
+   * AMAZON CONTENT SWITCHES.
+   *
+   * Strictly, the Associates Operating Agreement licenses their product
+   * imagery and prices only through the Product Advertising API, which needs
+   * an approved account plus three qualifying sales. We are not there yet.
+   *
+   * Imagery is on anyway — a deliberate, owner-approved trade. A catalog of
+   * grey renders reads as unfinished, and a thin-looking site is itself a
+   * common reason applications get rejected. Enforcement against hotlinked
+   * imagery is rare in practice; the exposure is losing the account if it is
+   * ever enforced. Manufacturer media kits are being pursued in parallel,
+   * which would make this legitimate outright — see product-images.ts.
+   *
+   * Prices stay off. That side is enforced far more consistently, a stale
+   * price actively misleads a buyer, and "Check price on Amazon" is the normal
+   * pattern anyway, so there is nothing to gain by risking it.
    */
-  useAmazonImagery: false,
+  useAmazonImagery: true,
   showItemPrices: false,
 
   /** Amazon Associates tag. Replace with the real one before launch. */
-  amazonTag: process.env.NEXT_PUBLIC_AMAZON_TAG ?? "homegymplan-20",
+  amazonTag: process.env.NEXT_PUBLIC_AMAZON_TAG ?? "gymplanner-20",
   amazonDomain: "www.amazon.com",
   affiliateDisclosure:
     "As an Amazon Associate we earn from qualifying purchases. Links to Amazon and equipment brands on this site are affiliate links — you pay the same price, and we may earn a commission.",

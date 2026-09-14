@@ -11,7 +11,8 @@ export function Logo({ className = "" }: { className?: string }) {
         aria-hidden
         className="grid h-7 w-7 place-items-center rounded-md bg-accent text-white"
       >
-        <span className="text-sm font-black">R</span>
+        {/* Derived from the brand name so a rename never leaves a stale mark. */}
+        <span className="text-sm font-black">{siteConfig.name.charAt(0)}</span>
       </span>
       <span className="text-lg">{siteConfig.name}</span>
     </Link>

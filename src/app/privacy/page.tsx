@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/site.config";
 export const metadata: Metadata = {
   title: "Privacy policy",
   description:
-    "What RackSpace collects, what stays on your device, and who we share data with.",
+    `What ${siteConfig.name} collects, what stays on your device, and who we share data with.`,
 };
 
 export default function PrivacyPage() {
