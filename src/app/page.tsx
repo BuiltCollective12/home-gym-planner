@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AffiliateDisclosure, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { layouts } from "@/lib/layouts";
 import { EmailCapture } from "@/components/EmailCapture";
 import { EquipmentThumb } from "@/components/EquipmentThumb";
 import { bundles } from "@/lib/bundles";
@@ -225,6 +226,37 @@ export default function HomePage() {
                     : "Check price on Amazon"}
                 </p>
               </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* --------------------------------------------------------- layouts */}
+      {/*
+        Internal links to the room-size pages. These are the pages built to be
+        found by search, and an orphaned page is a page Google crawls last —
+        so the homepage links every one of them by name.
+      */}
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <h2 className="text-3xl font-black tracking-tight">
+          Start from a room like yours
+        </h2>
+        <p className="mt-2 max-w-2xl text-ink-600">
+          Worked layouts for the spaces people actually have, each checked for
+          walkways and ceiling clearance. Open one and change anything.
+        </p>
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {layouts.map((layout) => (
+            <li key={layout.slug}>
+              <Link
+                href={`/layouts/${layout.slug}`}
+                className="card flex items-center justify-between gap-3 p-4 hover:border-ink-300"
+              >
+                <span className="font-semibold">{layout.h1}</span>
+                <span className="shrink-0 text-sm text-ink-500">
+                  {layout.roomLabel}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
