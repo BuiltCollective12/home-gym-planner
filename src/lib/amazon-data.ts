@@ -65,7 +65,8 @@ export const amazonData: Record<string, AmazonRecord> = {
   },
   "sportsroyals-cage-lat": {
     imageId: "81lbf+JbCNL",
-    checkedOn: CHECKED,
+    priceUsd: 499.99,
+    checkedOn: RECHECKED,
     titleSeen: "Sportsroyals Squat Rack, LAT Power Cage, Multi-Function",
   },
   "titan-folding-rack": {
@@ -125,7 +126,8 @@ export const amazonData: Record<string, AmazonRecord> = {
   },
   "bowflex-selecttech-552": {
     imageId: "71bdxVC7-0L",
-    checkedOn: CHECKED,
+    priceUsd: 199.99,
+    checkedOn: RECHECKED,
     titleSeen: "BowFlex Results Series 552 SelectTech Single Dumbbell",
   },
   "powerblock-elite-exp-50": {

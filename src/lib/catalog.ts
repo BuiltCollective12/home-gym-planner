@@ -49,7 +49,7 @@ export const catalog: Equipment[] = [
     ceilingClearanceIn: 90,
     weightLbs: 216,
     estPriceUsd: 560,
-    ...az("B0CQPCXJ3M"),
+    ...az("B0964RMBNY"),
     tags: ["power rack", "squat", "pull-up", "cage", "best seller"],
   },
   {
@@ -109,7 +109,7 @@ export const catalog: Equipment[] = [
     ceilingClearanceIn: 91,
     weightLbs: 180,
     estPriceUsd: 470,
-    ...az("B0CZF39S2S"),
+    ...az("B0CPP4L531"),
     tags: ["power cage", "lat pulldown", "all in one", "value"],
   },
   {
@@ -196,7 +196,7 @@ export const catalog: Equipment[] = [
     heightIn: 3,
     weightLbs: 33,
     estPriceUsd: 150,
-    ...az("B0CTRNZ9XC"),
+    ...az("B07NZ6PK8F"),
     tags: ["barbell", "olympic", "multipurpose", "knurling"],
   },
   {
@@ -318,8 +318,8 @@ export const catalog: Equipment[] = [
     heightIn: 10,
     clearanceIn: { front: 24 },
     weightLbs: 52.5,
-    estPriceUsd: 250,
-    ...az("B0G6Z84TQM"),
+    estPriceUsd: 200,
+    ...az("B0G1V685WC"),
     tags: ["adjustable", "dial", "pair", "best seller", "space saving"],
   },
   {

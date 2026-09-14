@@ -47,6 +47,30 @@ describe("catalog integrity", () => {
     }
   });
 
+  it("never uses a known variation-parent ASIN", () => {
+    /*
+     * A variation parent renders a perfectly normal product page — in stock,
+     * price, add-to-cart button — but has no size or colour selected, so the
+     * multi-item cart endpoint drops it without erroring. That is what sent a
+     * real buyer to a half-empty cart.
+     *
+     * These six were found the hard way. Re-adding one would look completely
+     * fine in every other check, so it is worth naming them.
+     */
+    const knownParents: Record<string, string> = {
+      B0B35ZF8XC: "CAP barbell family — use B09Z1BXM53",
+      B0CM9VR4CL: "Nuobell colours — use B0BB8D5VTW",
+      B0CQPCXJ3M: "Titan T-3 family — use B0964RMBNY",
+      B0CZF39S2S: "Sportsroyals cage — use B0CPP4L531",
+      B0CTRNZ9XC: "Synergee Games bar — use B07NZ6PK8F",
+      B0G6Z84TQM: "BowFlex 552 — use B0G1V685WC",
+    };
+    for (const item of catalog) {
+      const why = item.asin ? knownParents[item.asin] : undefined;
+      expect(why, `${item.id} uses parent ASIN ${item.asin}: ${why}`).toBeUndefined();
+    }
+  });
+
   it("points every item at a distinct product", () => {
     const asins = catalog.map((i) => i.asin);
     const dupes = asins.filter((a, i) => asins.indexOf(a) !== i);

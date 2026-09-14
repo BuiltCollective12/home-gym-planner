@@ -209,3 +209,35 @@ Running the audit twice in quick succession got 59 of 93 requests throttled.
 They were reported as **unchecked**, not dead — which is the whole point of that
 distinction. The script now runs 2 workers at 1.4s intervals. If a run comes
 back with a large unchecked count, wait and re-run rather than acting on it.
+
+### Four more parents found by the catalog-wide sweep
+
+Adding redirect detection to the audit immediately turned up four more, two of
+them sitting inside bundles:
+
+| Row | Was (parent) | Now (child) |
+|---|---|---|
+| `titan-t3-power-rack` | `B0CQPCXJ3M` | `B0964RMBNY` |
+| `sportsroyals-cage-lat` | `B0CZF39S2S` | `B0CPP4L531` |
+| `synergee-games-bar` | `B0CTRNZ9XC` | `B07NZ6PK8F` |
+| `bowflex-selecttech-552` | `B0G6Z84TQM` | `B0G1V685WC` |
+
+Every one resolved to exactly the product the row describes — same title, same
+image id — so these are pure parent-to-child swaps with no change to what the
+buyer gets. **Six parent ASINs total across the catalog**, all of which passed
+every availability check because availability was never the problem.
+
+A test in `catalog.test.ts` now names all six so re-adding one fails the build
+rather than quietly costing a sale.
+
+`bowflex-selecttech-552` also had its estimate corrected from $250 to $200: the
+child listing is $199.99 and the old figure had drifted 25% above it. It remains
+a **single** dumbbell, not a pair — still worth revisiting.
+
+### Sweep status
+
+The full run finished with **42 checked clean, 0 dead, 51 unchecked** — Amazon
+throttled the rest after a heavy day of requests. Nothing in the unchecked set
+is known to be wrong; it simply has not been looked at. **Re-run
+`npm run check:availability` on a quiet day** to clear the remainder, especially
+for redirects, since only the 42 that responded were tested for that.
