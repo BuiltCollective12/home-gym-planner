@@ -40,7 +40,7 @@ export default function HomePage() {
     "concept2-rowerg",
     "bowflex-selecttech-552",
     "finer-form-fid-bench",
-    "signature-bumper-set-260",
+    "cap-bumper-set-260",
     "valor-bd-62-functional-trainer",
   ]
     .map(getEquipment)

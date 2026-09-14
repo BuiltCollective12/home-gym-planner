@@ -58,3 +58,55 @@ estimate. They are **not** live Amazon prices and the UI still says "est." —
 displaying an Amazon price requires PA-API with a timestamp under the Associates
 agreement. A test fails the build if any estimate drifts more than 15% from the
 last observed price.
+
+---
+
+## Availability sweep — 2026-09-13
+
+Triggered by a real logged-in cart test: five bundle items were sent to Amazon
+and three came back **"currently unavailable"**. The multi-item cart link itself
+worked (quantities were correct), so the mechanic was fine — the products were
+not.
+
+I probed all 86 ASINs for `#add-to-cart-button` on `/dp/<asin>`. **6 were dead.**
+Every one of them was in the first 20 rows sourced, and everything sourced later
+was clean — the failure was age, not method.
+
+The trap: a dead listing still renders a normal-looking product page with a
+photo and a price. Only the missing add-to-cart button gives it away, and a
+multi-item cart link **silently drops** the item rather than erroring.
+
+| Dead ASIN | Was | Replaced with | New ASIN |
+|---|---|---|---|
+| `B09FVQTZZG` | Titan X-3 Flat Foot Rack | Titan X-3 Tall Bolt-Down, 36" | `B09GXCR79J` |
+| `B07PVDCMJZ` | Fitness Reality 810XLT | Sunny Health Full Size Power Cage | `B08B8Z6BZK` |
+| `B0CHLNLJF3` | Fitvids 260 lb bumper set | CAP 260 lb Economy bumper set | `B0DHYNHYJD` |
+| `B0BZWY8Z2D` | Signature 210 lb bumper set | HULKFIT 160 lb bumper set | `B0H5VXVYWB` |
+| `B083R4RMTH` | CAP Hex Trap Bar | CAP Trap & Shrug Bar, elevated grip | `B083R4NYC4` |
+| `B09D12QXYM` | Titan Safety Squat Bar | Titan TITAN Series SSB, 5" camber | `B0DDM6PTRV` |
+
+Four of the six sat inside bundles, which is why the cart test failed so visibly.
+`plates` was down to two live options, below the three-per-category floor the
+catalog test enforces.
+
+Every replacement was checked for **variation parents** as well as stock. A
+variation parent ("Multiple Colors, 100–370 lbs") has a working add-to-cart
+button on the page but needs a child selection, so it can fail a direct cart
+add. All six replacements are single-offer listings.
+
+### Prices moved a lot
+
+Two replacements are far cheaper than what they replaced — the trap bar went
+$200 → $70 and the 260 lb bumper set $500 → $260. The old estimates were
+calibrated against listings that have since died, so these are corrections, not
+discounts. The safety squat bar went the other way, $330 → $460.
+
+### Still open
+
+- **`B0B35ZF8XC`** (CAP The Beast barbell) failed the live cart add, but every
+  signal I can read says it is healthy: add-to-cart present, "In Stock", no
+  variations. Testing the cart endpoint directly needs a signed-in session.
+  **Retest this one specifically on the next cart run.**
+- No availability field exists in the data yet, so stock churn is invisible
+  until someone tries to buy. This sweep should be repeated — monthly is
+  probably right, given 6 of 86 died in roughly two days of catalog age.

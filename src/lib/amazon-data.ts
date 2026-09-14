@@ -29,6 +29,13 @@ export type AmazonRecord = {
 };
 
 const CHECKED = "2026-09-12";
+/**
+ * Rows re-sourced on the availability sweep of 2026-09-13. Six ASINs from the
+ * first sourcing pass had gone un-buyable — the listing still renders, but the
+ * add-to-cart button is absent, so a multi-item cart link silently drops them.
+ * See problem-products.md.
+ */
+const RECHECKED = "2026-09-13";
 
 export const amazonData: Record<string, AmazonRecord> = {
   "titan-t3-power-rack": {
@@ -37,11 +44,11 @@ export const amazonData: Record<string, AmazonRecord> = {
     checkedOn: CHECKED,
     titleSeen: "Titan Fitness T-3 Series Black Short Power Rack, 24in Depth",
   },
-  "titan-x3-flat-foot-rack": {
-    imageId: "51SUnuYW5DL",
-    priceUsd: 719.99,
-    checkedOn: CHECKED,
-    titleSeen: "Titan Fitness X-3 Series Flat Foot Power Rack, 91\" H x 30\" D",
+  "titan-x3-tall-rack": {
+    imageId: "51fg5LQ4U4L",
+    priceUsd: 689.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Titan Fitness X-3 Series Tall Bolt-Down Power Rack 36-in. Depth",
   },
   "hulkfit-power-cage": {
     imageId: "81GZrbvElTL",
@@ -49,11 +56,11 @@ export const amazonData: Record<string, AmazonRecord> = {
     checkedOn: CHECKED,
     titleSeen: "HulkFit 1000-Pound Capacity Multi-Function Adjustable Power Cage",
   },
-  "fitness-reality-810xlt": {
-    imageId: "71hfBVFqKNL",
-    priceUsd: 359.99,
-    checkedOn: CHECKED,
-    titleSeen: "Fitness Reality 800 lbs. Capacity Squat Rack Combo with Lat Pull-Down",
+  "sunny-power-cage": {
+    imageId: "61XlZWVgqXL",
+    priceUsd: 349.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Sunny Health & Fitness Full Size Power Cage for Home Gym Training",
   },
   "sportsroyals-cage-lat": {
     imageId: "81lbf+JbCNL",
@@ -81,24 +88,28 @@ export const amazonData: Record<string, AmazonRecord> = {
     titleSeen: "Titan Fitness Performance Series 20 KG Power Bar, 1500 LB",
   },
   "cap-trap-bar": {
-    imageId: "71V2uqneYBL",
-    checkedOn: CHECKED,
-    titleSeen: "Cap Barbell Olympic Hex Bar, Trap Bar, Shrug Bar, Combo Grips",
+    imageId: "71WrJvRV3qL",
+    priceUsd: 69.99,
+    checkedOn: RECHECKED,
+    titleSeen: "CAP Olympic Trap and Shrug Bar, Elevated Grip, Green, 500lb Capacity",
   },
   "titan-safety-squat-bar": {
-    imageId: "41OOSosvdDL",
-    checkedOn: CHECKED,
-    titleSeen: "Titan Fitness Rackable Safety Squat Bar, Olympic Sleeves, 1,500lb",
+    imageId: "31W+onifX4L",
+    priceUsd: 459.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Titan Fitness TITAN Series Safety Squat Bar, 5\" Camber, 1,500 LB Rated",
   },
-  "signature-bumper-set-260": {
-    imageId: "71B+6603XKL",
-    checkedOn: CHECKED,
-    titleSeen: "Fitvids 2\" Olympic Bumper Plate Set, 260LB (2x 10/15/25/35/45LB)",
+  "cap-bumper-set-260": {
+    imageId: "71qesN1VI9L",
+    priceUsd: 259.99,
+    checkedOn: RECHECKED,
+    titleSeen: "CAP 260lb Economy Olympic Bumper Plate Weight Set",
   },
-  "yes4all-bumper-set-160": {
-    imageId: "71bnLFms9yL",
-    checkedOn: CHECKED,
-    titleSeen: "Signature Fitness 2\" Olympic Bumper Plate Set, 210LB (2x 25/35/45LB)",
+  "hulkfit-bumper-set-160": {
+    imageId: "81zLRPvxvZL",
+    priceUsd: 164.99,
+    checkedOn: RECHECKED,
+    titleSeen: "HULKFIT 2-Inch Olympic Rubber Weight Plates Sets, 160LB Set, Colored",
   },
   "cap-cast-iron-set-300": {
     imageId: "71BmLCpUSvL",

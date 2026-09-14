@@ -56,8 +56,8 @@ export const bundles: Bundle[] = [
       items: [
         at("balancefrom-foam-tile-24", 24, 0),
         at("balancefrom-foam-tile-24", 24, 72),
-        at("fitness-reality-810xlt", 36, 0),
-        at("yes4all-bumper-set-160", 94, 100),
+        at("sunny-power-cage", 36, 0),
+        at("hulkfit-bumper-set-160", 94, 100),
         at("flybird-adjustable-bench", 42, 96),
         at("cap-olympic-bar-7ft", 114, 60, 90),
       ],
@@ -83,7 +83,7 @@ export const bundles: Bundle[] = [
         at("titan-t3-power-rack", 48, 0),
         at("yes4all-plate-tree", 114, 6),
         at("vornado-air-circulator", 6, 6),
-        at("signature-bumper-set-260", 6, 40),
+        at("cap-bumper-set-260", 6, 40),
         at("bowflex-selecttech-552", 120, 60),
         at("finer-form-fid-bench", 54, 84),
         at("titan-olympic-bar", 29, 228),
@@ -110,11 +110,11 @@ export const bundles: Bundle[] = [
         at("rubber-cal-stall-mat-4x6", 96, 72),
         // North wall: pulldown and rack side by side, both facing into the room.
         at("valor-cb-12-lat-pulldown", 0, 0),
-        at("titan-x3-flat-foot-rack", 60, 0),
+        at("titan-x3-tall-rack", 60, 0),
         // East wall: storage stacked front to back, clear of the rower's lane.
         at("yes4all-plate-tree", 140, 6),
         at("synergee-vertical-bar-holder", 140, 62),
-        at("signature-bumper-set-260", 6, 100),
+        at("cap-bumper-set-260", 6, 100),
         at("titan-change-plate-set", 30, 100),
         at("finer-form-fid-bench", 70, 110),
         at("concept2-rowerg", 134, 120),
@@ -149,10 +149,10 @@ export const bundles: Bundle[] = [
         at("rubber-cal-stall-mat-4x6", 48, 240),
         at("rubber-cal-stall-mat-4x6", 96, 240),
         // North wall: the two big cages, with storage in the gap between them.
-        at("titan-x3-flat-foot-rack", 0, 0),
+        at("titan-x3-tall-rack", 0, 0),
         at("marcy-smith-cage-sm4008", 166, 0),
         at("yes4all-plate-tree", 80, 6),
-        at("signature-bumper-set-260", 118, 6),
+        at("cap-bumper-set-260", 118, 6),
         at("titan-olympic-bar", 61, 70),
         // Mid floor.
         at("valor-bd-62-functional-trainer", 0, 110),
