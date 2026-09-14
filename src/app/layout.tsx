@@ -38,6 +38,16 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
   },
   robots: { index: true, follow: true },
+  /*
+   * Search Console ownership. Belt and braces: the HTML file at
+   * public/googlee3a263398d8ad029.html verifies on its own, and this meta tag
+   * is the same claim by a second route — so verification survives the file
+   * being moved or a future host that does not serve public/ at the root.
+   * Google accepts either.
+   */
+  verification: {
+    google: "BECwVCHuMqqAqgmHP2upadtnOKg0w0oOHMX1nbBaAt4",
+  },
 };
 
 export const viewport: Viewport = {
