@@ -47,6 +47,12 @@ export const metadata: Metadata = {
    */
   verification: {
     google: "BECwVCHuMqqAqgmHP2upadtnOKg0w0oOHMX1nbBaAt4",
+    // Bing, which also feeds Yahoo, DuckDuckGo, Ecosia and ChatGPT's web
+    // search. Next has no first-class field for it, so it goes through
+    // `other`, which renders the tag name verbatim.
+    other: {
+      "msvalidate.01": "24DF113C8C0A5D182157E33538F4CB7A",
+    },
   },
 };
 
