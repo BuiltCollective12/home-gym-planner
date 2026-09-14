@@ -29,6 +29,9 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Logo />
         <nav className="flex items-center gap-1 sm:gap-2">
+          <Link href="/layouts" className="btn-quiet hidden md:inline-flex">
+            Layouts
+          </Link>
           <Link href="/bundles" className="btn-quiet hidden sm:inline-flex">
             Bundles
           </Link>
@@ -79,6 +82,9 @@ export function SiteFooter() {
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-600">
             <Link href="/planner" className="hover:text-ink-900">
               Planner
+            </Link>
+            <Link href="/layouts" className="hover:text-ink-900">
+              Layouts
             </Link>
             <Link href="/bundles" className="hover:text-ink-900">
               Bundles
