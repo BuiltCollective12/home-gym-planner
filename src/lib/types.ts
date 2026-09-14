@@ -16,7 +16,9 @@ export type Category =
   | "cardio"
   | "flooring"
   | "storage"
-  | "accessories";
+  | "accessories"
+  | "audio"
+  | "lighting";
 
 export const CATEGORIES: Category[] = [
   "racks",
@@ -29,6 +31,8 @@ export const CATEGORIES: Category[] = [
   "flooring",
   "storage",
   "accessories",
+  "audio",
+  "lighting",
 ];
 
 export const CATEGORY_LABELS: Record<Category, string> = {
@@ -42,6 +46,8 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   flooring: "Flooring",
   storage: "Storage",
   accessories: "Accessories",
+  audio: "Audio",
+  lighting: "Lighting",
 };
 
 /** Sides are expressed in the item's own un-rotated frame. */

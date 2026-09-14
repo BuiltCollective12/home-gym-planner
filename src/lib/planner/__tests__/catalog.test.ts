@@ -66,8 +66,9 @@ describe("catalog integrity", () => {
     for (const item of catalog) {
       for (const dim of ["widthIn", "depthIn", "heightIn"] as const) {
         expect(item[dim], `${item.id}.${dim}`).toBeGreaterThan(0);
-        // Nothing in a home gym is over 25 ft in any direction.
-        expect(item[dim], `${item.id}.${dim} too big`).toBeLessThanOrEqual(300);
+        // 35 ft. No machine approaches this, but flooring is sold by the roll
+        // and a 33 ft turf run is a real product you cut down on site.
+        expect(item[dim], `${item.id}.${dim} too big`).toBeLessThanOrEqual(420);
       }
       expect(item.weightLbs, `${item.id} weight`).toBeGreaterThan(0);
       expect(item.weightLbs, `${item.id} weight`).toBeLessThan(1500);

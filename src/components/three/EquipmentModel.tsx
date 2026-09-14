@@ -151,6 +151,9 @@ export type Archetype =
   | "bands"
   | "mirror"
   | "fan"
+  | "speaker"
+  | "light-bar"
+  | "light-strip"
   | "flooring";
 
 const has = (e: Equipment, ...t: string[]) =>
@@ -187,6 +190,10 @@ export function archetypeFor(e: Equipment): Archetype {
       return "spin-bike";
     case "flooring":
       return "flooring";
+    case "audio":
+      return "speaker";
+    case "lighting":
+      return has(e, "strip") ? "light-strip" : "light-bar";
     case "storage":
       if (has(e, "plate storage", "tree")) return "plate-tree";
       if (has(e, "dumbbell rack")) return "dumbbell-rack";
@@ -275,6 +282,12 @@ export function EquipmentModel({ equipment }: { equipment: Equipment }) {
       return <Mirror w={w} d={d} h={h} />;
     case "fan":
       return <Fan w={w} d={d} h={h} />;
+    case "speaker":
+      return <Speaker w={w} d={d} h={h} />;
+    case "light-bar":
+      return <LightBar w={w} d={d} h={h} />;
+    case "light-strip":
+      return <LightStrip w={w} d={d} h={h} />;
     case "flooring":
       return <Flooring w={w} d={d} h={h} />;
   }
@@ -953,6 +966,69 @@ function Fan({ w, d, h }: Dim) {
           <Box key={i} size={[r * 0.3, r * 1.5, 0.6 * IN]} pos={[0, 0, -d * 0.3]} rot={[0, 0, (i * Math.PI) / 5]} mat={matte("#454B57")} />
         ))}
       </group>
+    </group>
+  );
+}
+
+/** Cabinet with a driver and a tweeter — reads as a speaker at a glance. */
+function Speaker({ w, d, h }: Dim) {
+  const r = Math.min(w, h) * 0.3;
+  return (
+    <group>
+      <Box size={[w, h, d]} pos={[0, h / 2, 0]} mat={matte("#1B1D22")} />
+      <Disc
+        radius={r}
+        thickness={0.8 * IN}
+        pos={[0, h * 0.38, -d / 2 - 0.3 * IN]}
+        axis="z"
+        mat={matte("#0E1014")}
+        segments={20}
+      />
+      <Disc
+        radius={r * 0.42}
+        thickness={0.8 * IN}
+        pos={[0, h * 0.76, -d / 2 - 0.3 * IN]}
+        axis="z"
+        mat={metal("#6E7178")}
+        segments={16}
+      />
+    </group>
+  );
+}
+
+/**
+ * Overhead light. Sits at ceiling height rather than on the floor, which is
+ * where these actually hang — the caller places it in plan, we lift it in Y.
+ */
+function LightBar({ w, d, h }: Dim) {
+  return (
+    <group position={[0, 7.6 - h, 0]}>
+      <Box size={[w, h, d]} pos={[0, h / 2, 0]} mat={matte("#D8DBE2")} />
+      <mesh position={[0, 0.02, 0]}>
+        <boxGeometry args={[w * 0.94, 0.4 * IN, d * 0.8]} />
+        <meshStandardMaterial
+          color="#FFFFFF"
+          emissive="#FFF6E0"
+          emissiveIntensity={2.2}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+/** A reel of strip light, boxed, plus a lit line to say what it is. */
+function LightStrip({ w, d, h }: Dim) {
+  return (
+    <group>
+      <Box size={[w, h, d]} pos={[0, h / 2, 0]} mat={matte("#2A2E38")} />
+      <mesh position={[0, h + 0.3 * IN, 0]}>
+        <boxGeometry args={[w * 0.9, 0.5 * IN, 0.5 * IN]} />
+        <meshStandardMaterial
+          color="#FFFFFF"
+          emissive="#7FC7FF"
+          emissiveIntensity={2.5}
+        />
+      </mesh>
     </group>
   );
 }
