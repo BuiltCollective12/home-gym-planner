@@ -29,8 +29,8 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
-const CONCURRENCY = 3;
-const DELAY_MS = 700;
+const CONCURRENCY = 2;
+const DELAY_MS = 1400;
 const RETRIES = 2;
 
 /* ------------------------------------------------------------------ read --
@@ -105,15 +105,23 @@ async function probe(asin) {
      * differs, Amazon redirected us and the row needs a look.
      */
     const current = /"currentAsin"\s*:\s*"([A-Z0-9]{10})"/.exec(html)?.[1];
-    const parent = /"parentAsin"\s*:\s*"([A-Z0-9]{10})"/.exec(html)?.[1];
+
+    /*
+     * The only trustworthy signal is whether the page resolved to the ASIN we
+     * asked for. If it did, that exact ASIN is what a cart link adds, whether
+     * or not it also happens to head a variation family.
+     *
+     * `parentAsin === asin` looks like it should mean "this is a parent", but
+     * Amazon sets it to the item's own ASIN on plenty of standalone products —
+     * it flagged a box of chalk that has no variations at all. Redirects are
+     * the real problem, so redirects are what we report.
+     */
     const redirected = Boolean(current && current !== asin);
-    const isParent = Boolean(parent && parent === asin);
 
     return {
       state: hasCart ? "OK" : "DEAD",
       title: decodeEntities(title),
       redirected,
-      isParent,
       resolvedAsin: current ?? null,
     };
   }
@@ -229,15 +237,14 @@ async function main() {
     }
   }
 
-  const variationTrouble = results.filter((r) => r.redirected || r.isParent);
-  if (variationTrouble.length) {
+  const redirects = results.filter((r) => r.redirected);
+  if (redirects.length) {
     console.log(
-      "\nVARIATION RISK — a cart link may drop these. Point them at a child ASIN:",
+      "\nREDIRECTED — the listing resolves to a different ASIN than we store.",
     );
-    for (const v of variationTrouble) {
-      console.log(
-        `  ${v.asin}  ${v.id}  ${v.isParent ? "is a variation parent" : `redirects to ${v.resolvedAsin}`}`,
-      );
+    console.log("A cart link may add the wrong item or nothing at all:");
+    for (const v of redirects) {
+      console.log(`  ${v.asin}  ${v.id}  ->  ${v.resolvedAsin}`);
     }
   }
 

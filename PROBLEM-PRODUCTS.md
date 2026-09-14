@@ -144,3 +144,68 @@ literal comparison flagged ten of eighty-six on the first run, all noise.
 All 86 live, which independently confirms the manual browser audit above and
 the six replacements. One title had been rewritten (`titan-t3-power-rack`) —
 same rack, new listing copy — and the recorded title was updated to match.
+
+---
+
+## Variation parents — the real cause of the half-empty cart
+
+The cart test that started all this had one item that made no sense: the CAP
+Beast barbell (`B0B35ZF8XC`) showed **In Stock**, had an add-to-cart button, and
+still failed to reach the cart. Availability was never the problem.
+
+`B0B35ZF8XC` is a **variation parent**.
+
+When a product comes in sizes or colours, Amazon creates one ASIN per variant —
+the *children* — plus a *parent* ASIN whose page exists only to render the
+picker. The parent looks completely normal: title, photo, price, add-to-cart
+button. But no variant is selected, so the multi-item cart endpoint has nothing
+concrete to add and **drops it silently**.
+
+Two rows in the catalog were parents:
+
+| Row | Was (parent) | Now (child) | Family |
+|---|---|---|---|
+| `cap-olympic-bar-7ft` | `B0B35ZF8XC` | `B09Z1BXM53` | The Boss / The Rebel / Black-Chrome |
+| `nuobell-adjustable-80` | `B0CM9VR4CL` | `B0BB8D5VTW` | Tactical Green / Total Black / Black-Silver |
+
+### How to tell, reliably
+
+Checking the page for a twister element does **not** work. Amazon has several
+markups for the picker (`#twister`, `#variation_*`, `inline-twister-*`) and a
+check written against one silently passes the others — that is how these two
+got through the screen when the six replacements were sourced.
+
+The reliable test is in the page's own data:
+
+```
+"currentAsin":"B09Z1BXM53"    <- what the page actually resolved to
+"parentAsin":"B0B35ZF8XC"
+```
+
+**If `currentAsin` differs from the ASIN you requested, you are on a parent** —
+or on something Amazon redirected, which is just as bad. If it matches, that
+exact ASIN is what a cart link adds, and it does not matter whether the product
+also has variants.
+
+`parentAsin === your ASIN` is *not* a usable signal on its own: Amazon sets it
+to the item's own ASIN on plenty of standalone products, and it flagged a box of
+chalk with no variations at all.
+
+`npm run check:availability` now reports redirects for the whole catalog.
+
+### Reading the variation family
+
+When a row does turn out to be a parent, the children and their labels are in
+the page as `dimensionValuesDisplayData`, which is how the correct child was
+picked in both cases above:
+
+```json
+{"B009SGRAMS":["25-Pound","Red/Black"], "B08XRVBF8F":["25-Pound","Blue/Black"], ...}
+```
+
+### Throttling
+
+Running the audit twice in quick succession got 59 of 93 requests throttled.
+They were reported as **unchecked**, not dead — which is the whole point of that
+distinction. The script now runs 2 workers at 1.4s intervals. If a run comes
+back with a large unchecked count, wait and re-run rather than acting on it.

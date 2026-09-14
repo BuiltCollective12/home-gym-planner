@@ -80,7 +80,8 @@ export const amazonData: Record<string, AmazonRecord> = {
   },
   "cap-olympic-bar-7ft": {
     imageId: "61tYbWQSFdL",
-    checkedOn: CHECKED,
+    priceUsd: 149,
+    checkedOn: RECHECKED,
     titleSeen: "CAP The Beast 7ft Olympic Barbell, Pro Series, 1,200lb Capacity",
   },
   "titan-olympic-bar": {
@@ -134,8 +135,9 @@ export const amazonData: Record<string, AmazonRecord> = {
   },
   "nuobell-adjustable-80": {
     imageId: "71kLcOZsGnL",
-    checkedOn: CHECKED,
-    titleSeen: "Nuobell 580 Adjustable Dumbbells, 5-80 lb, Set of 2",
+    priceUsd: 745,
+    checkedOn: RECHECKED,
+    titleSeen: "Nuobell 580 Adjustable Dumbbells, 5-80 lb, Set of 2 Free Weights",
   },
   "flybird-adjustable-bench": {
     imageId: "71ijsNeaN-L",

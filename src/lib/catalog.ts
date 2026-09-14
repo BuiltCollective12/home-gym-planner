@@ -182,8 +182,8 @@ export const catalog: Equipment[] = [
     depthIn: 3,
     heightIn: 3,
     weightLbs: 45,
-    estPriceUsd: 180,
-    ...az("B0B35ZF8XC"),
+    estPriceUsd: 149,
+    ...az("B09Z1BXM53"),
     tags: ["barbell", "olympic", "value", "best seller"],
   },
   {
@@ -347,7 +347,7 @@ export const catalog: Equipment[] = [
     clearanceIn: { front: 24 },
     weightLbs: 160,
     estPriceUsd: 750,
-    ...az("B0CM9VR4CL"),
+    ...az("B0BB8D5VTW"),
     tags: ["adjustable", "premium", "pair", "fast change"],
   },
   {
