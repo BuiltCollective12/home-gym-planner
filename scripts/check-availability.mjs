@@ -53,7 +53,10 @@ function readCatalog() {
 function readTitlesSeen() {
   const src = fs.readFileSync(path.join(ROOT, "src/lib/amazon-data.ts"), "utf8");
   const seen = {};
-  const re = /"([a-z0-9-]+)": \{[\s\S]*?titleSeen: "((?:[^"\\]|\\.)*)"/g;
+  // `titleSeen:` may sit on its own line when prettier wraps a long title, so
+  // the newline has to be allowed — without it the match runs on to the NEXT
+  // entry's title and silently reports the wrong product as repointed.
+  const re = /"([a-z0-9-]+)": \{[\s\S]*?titleSeen:\s*"((?:[^"\\]|\\.)*)"/g;
   let m;
   while ((m = re.exec(src))) seen[m[1]] = m[2].replace(/\\"/g, '"');
   return seen;
@@ -90,7 +93,29 @@ async function probe(asin) {
     if (!title) continue;
 
     const hasCart = /id="add-to-cart-button"/.test(html);
-    return { state: hasCart ? "OK" : "DEAD", title: decodeEntities(title) };
+
+    /*
+     * Variation check. A product sold in sizes or colours has one ASIN per
+     * variant (the "children") under a "parent" ASIN that only renders the
+     * picker. A parent in a cart link has no size selected, so Amazon can drop
+     * it — which is exactly how a bundle arrives half empty.
+     *
+     * `currentAsin` is what the page resolved to. If it matches what we asked
+     * for, we are pointing at a specific buyable child and all is well. If it
+     * differs, Amazon redirected us and the row needs a look.
+     */
+    const current = /"currentAsin"\s*:\s*"([A-Z0-9]{10})"/.exec(html)?.[1];
+    const parent = /"parentAsin"\s*:\s*"([A-Z0-9]{10})"/.exec(html)?.[1];
+    const redirected = Boolean(current && current !== asin);
+    const isParent = Boolean(parent && parent === asin);
+
+    return {
+      state: hasCart ? "OK" : "DEAD",
+      title: decodeEntities(title),
+      redirected,
+      isParent,
+      resolvedAsin: current ?? null,
+    };
   }
   return { state: "BLOCKED", note: "no product page after retries" };
 }
@@ -200,6 +225,18 @@ async function main() {
     if (thin.length) {
       console.log(
         `\n  Categories dropping below three live options: ${thin.join(", ")}`,
+      );
+    }
+  }
+
+  const variationTrouble = results.filter((r) => r.redirected || r.isParent);
+  if (variationTrouble.length) {
+    console.log(
+      "\nVARIATION RISK — a cart link may drop these. Point them at a child ASIN:",
+    );
+    for (const v of variationTrouble) {
+      console.log(
+        `  ${v.asin}  ${v.id}  ${v.isParent ? "is a variation parent" : `redirects to ${v.resolvedAsin}`}`,
       );
     }
   }

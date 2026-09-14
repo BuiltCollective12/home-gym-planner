@@ -69,15 +69,25 @@ describe("bundles", () => {
   });
 
   it("rises in price from Starter to Luxury", () => {
-    const totals = bundles.map((b) =>
+    // Only the tier ladder is a ladder. Niche bundles are priced by what the
+    // training style needs, so a mobility bundle costing less than a
+    // powerlifting one is correct, not a regression.
+    const tiers = bundles.filter((b) => b.kind === "tier");
+    expect(tiers.length).toBeGreaterThanOrEqual(4);
+    const totals = tiers.map((b) =>
       computeTotals(b.plan.items, b.plan.room, getEquipment).estCostUsd,
     );
     for (let i = 1; i < totals.length; i++) {
       expect(
         totals[i],
-        `${bundles[i].id} is not dearer than ${bundles[i - 1].id}`,
+        `${tiers[i].id} is not dearer than ${tiers[i - 1].id}`,
       ).toBeGreaterThan(totals[i - 1]);
     }
+  });
+
+  it("offers both a budget ladder and a training style", () => {
+    expect(bundles.some((b) => b.kind === "tier")).toBe(true);
+    expect(bundles.filter((b) => b.kind === "niche").length).toBeGreaterThanOrEqual(4);
   });
 
   it("can be bought — every bundle produces an Amazon cart link", () => {
@@ -98,12 +108,32 @@ describe("bundles", () => {
     }
   });
 
-  it("gives every bundle a rack or stand to train in", () => {
+  it("never ships a barbell without a rack to use it in", () => {
+    // The real rule is safety, not completeness: squatting or benching a
+    // loaded bar with nowhere to fail is how people get hurt. A cardio or
+    // mobility bundle has no barbell and correctly has no rack.
     for (const bundle of bundles) {
-      const hasRack = bundle.plan.items.some(
-        (i) => getEquipment(i.equipmentId)?.category === "racks",
+      const categories = bundle.plan.items.map(
+        (i) => getEquipment(i.equipmentId)?.category,
       );
-      expect(hasRack, `${bundle.id} has no rack`).toBe(true);
+      if (!categories.includes("barbells")) continue;
+      expect(
+        categories.includes("racks"),
+        `${bundle.id} has a barbell but no rack`,
+      ).toBe(true);
+    }
+  });
+
+  it("gives every bundle enough to actually train with", () => {
+    for (const bundle of bundles) {
+      const real = bundle.plan.items.filter(
+        (i) => getEquipment(i.equipmentId)?.category !== "flooring",
+      );
+      // Four is the real floor: Starter is deliberately rack, bench, bar and
+      // plates and nothing else. This guards against an empty bundle, not
+      // against a minimal one.
+      expect(real.length, `${bundle.id} is too thin`).toBeGreaterThanOrEqual(4);
+      expect(bundle.highlights.length, `${bundle.id}`).toBeGreaterThanOrEqual(3);
     }
   });
 

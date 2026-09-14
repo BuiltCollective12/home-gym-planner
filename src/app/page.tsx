@@ -30,7 +30,13 @@ const STEPS = [
 ];
 
 export default function HomePage() {
-  const featured = bundles.map((bundle) => ({
+  // The homepage shows the budget ladder only. The niche bundles are a
+  // different question — what do you train, not what will you spend — and
+  // mixing ten cards into one row makes neither choice legible. /bundles
+  // groups them properly.
+  const featured = bundles
+    .filter((b) => b.kind === "tier")
+    .map((bundle) => ({
     bundle,
     totals: computeTotals(bundle.plan.items, bundle.plan.room, getEquipment),
     href: `/planner#p=${encodePlan(bundle.plan)}`,

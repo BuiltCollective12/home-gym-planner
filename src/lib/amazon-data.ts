@@ -545,6 +545,50 @@ export const amazonData: Record<string, AmazonRecord> = {
     checkedOn: "2026-09-13",
     titleSeen: "PAUTIX RGB COB LED Strip Light 16.4ft",
   },
+  "jfit-wall-ball-25": {
+    imageId: "71pbkec7bxL",
+    priceUsd: 64.99,
+    checkedOn: RECHECKED,
+    titleSeen:
+      "JFit Wall Ball - Premium Soft Weighted Exercise Ball for Strength, 4-30 LB",
+  },
+  "speed-jump-rope": {
+    imageId: "81T79LZeAnL",
+    priceUsd: 11.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Jump Rope, High Speed Weighted Jump Rope - Premium Quality Tangle-Free",
+  },
+  "foam-roller-36": {
+    imageId: "71k65Go8D1L",
+    priceUsd: 24.99,
+    checkedOn: RECHECKED,
+    titleSeen: "ProsourceFit High Density Foam Rollers 36 inches long, Firm Full Body",
+  },
+  "yoga-block-strap-set": {
+    imageId: "51To5UIK8RL",
+    priceUsd: 16.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Syntus Yoga Block for Fitness, Pilates, Stretching and Toning",
+  },
+  "gym-chalk-blocks": {
+    imageId: "71Md01rnIAL",
+    priceUsd: 12.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Gibson Athletic Powder Chalk Blocks, Magnesium Carbonate, Pack of 8",
+  },
+  "gymreapers-wrist-wraps": {
+    imageId: "8100OjHSamL",
+    priceUsd: 19.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Gymreapers Weightlifting Wrist Wraps (Competition Grade) 18 Professional",
+  },
+  "retrospec-yoga-mat": {
+    imageId: "71j-NTcp5ML",
+    priceUsd: 39.99,
+    checkedOn: RECHECKED,
+    titleSeen: "Retrospec Solana 1 Extra Thick Yoga Mat Non Slip Exercise Mat w/Strap",
+  },
+
 };
 
 /** Rendered size for catalog thumbnails; Amazon serves any of these suffixes. */
