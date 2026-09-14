@@ -117,12 +117,14 @@ export const amazonData: Record<string, AmazonRecord> = {
   },
   "cap-cast-iron-set-300": {
     imageId: "71BmLCpUSvL",
-    checkedOn: CHECKED,
+    priceUsd: 397.18,
+    checkedOn: RECHECKED,
     titleSeen: "Cap Barbell 300 Pound Olympic Set, Grey",
   },
   "titan-change-plate-set": {
     imageId: "61hLFZj7EJL",
-    checkedOn: CHECKED,
+    priceUsd: 161.99,
+    checkedOn: RECHECKED,
     titleSeen: "Titan Fitness 37.5 LB Set Black Change Fractional Weight Plates",
   },
   "bowflex-selecttech-552": {
@@ -510,8 +512,10 @@ export const amazonData: Record<string, AmazonRecord> = {
   },
   "freepear-party-speaker": {
     imageId: "81dAzBeeEBL",
-    priceUsd: 149.99,
-    checkedOn: "2026-09-13",
+    // Was 149.99 on 2026-09-13. Amazon prices really do move this fast,
+    // which is why the UI says "est." and never quotes a live figure.
+    priceUsd: 199.99,
+    checkedOn: RECHECKED,
     titleSeen: "FREEPEAR Party Bluetooth Speaker - 240W Peak Loud Speaker",
   },
   "ancoon-bluetooth-speaker": {

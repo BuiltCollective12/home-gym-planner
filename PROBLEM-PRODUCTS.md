@@ -241,3 +241,57 @@ throttled the rest after a heavy day of requests. Nothing in the unchecked set
 is known to be wrong; it simply has not been looked at. **Re-run
 `npm run check:availability` on a quiet day** to clear the remainder, especially
 for redirects, since only the 42 that responded were tested for that.
+
+---
+
+## Full product audit — 2026-09-14
+
+Two passes, one offline and one against the live listings.
+
+### Offline: does each row agree with itself?
+
+Most product names state their own facts — `Olympic Bumper Plate Set — 260 lb`,
+`Extra-Thick Yoga Mat (72" × 24" × 1")`. That makes the name a second,
+independent source for the same numbers, so a disagreement is a bug in one of
+them. `catalog-consistency.test.ts` now enforces this, plus density and
+per-category weight bands.
+
+Found: **`titan-change-plate-set` was named "25 lb" and weighed 37.5.** The
+listing title confirms it is a 37.5 lb set, so the name was wrong. Fixed.
+
+Documented exceptions live in the test rather than being silently skipped —
+multi-tile packs whose name gives one tile, rope and strip lengths that are not
+footprints, and racks whose name gives internal depth while the row gives the
+external one. Each has to be justified in writing to be allowed through.
+
+### Online: does each row still match its listing?
+
+`npm run verify:products` — checks title, price, weight, dimensions and
+redirects for all 93. **92 checked, 1 throttled, 3 flagged:**
+
+| Row | Problem | Fix |
+|---|---|---|
+| `cap-cast-iron-set-300` | variation parent | `B002OP0DLA` → `B002OP1Z44` |
+| `titan-change-plate-set` | est $130 vs $161.99 | est → $162 |
+| `freepear-party-speaker` | est $150 vs $199.99 | est → $200 |
+
+**Nine variation parents found in total.**
+
+The speaker is not an error — it was $149.99 on 2026-09-13 and $199.99 the next
+day. Amazon prices move that fast, which is the whole reason the UI says "est."
+and never quotes a live figure.
+
+All three had **no recorded `priceUsd`**, which is exactly why the 15% drift
+test could not catch them and a network sweep had to. They have one now.
+
+### What this audit cannot tell you
+
+Amazon's "Product Dimensions" is usually the **shipping carton**, not the
+assembled item — a power rack ships as a box of tubes. So the dimension check is
+weak evidence, and a clean run does **not** mean every footprint is verified.
+Our numbers are assembled sizes and are frequently right where Amazon's are
+useless. Treat a dimension flag as a prompt to go and look, never as proof.
+
+Assembled dimensions still ultimately need a human against the manufacturer's
+spec sheet. The offline name-vs-fields check is the better guard, because it
+compares two things we control.

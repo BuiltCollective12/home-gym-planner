@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "check:availability": "node scripts/check-availability.mjs"
+    "check:availability": "node scripts/check-availability.mjs",
+    "verify:products": "node scripts/verify-products.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.0",

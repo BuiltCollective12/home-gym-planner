@@ -10,3 +10,4 @@ next-env.d.ts
 .vercel
 
 availability-report.json
+product-verification.json
